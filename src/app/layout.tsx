@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Outfit } from "next/font/google";
 import "./globals.css";
+import NoiseOverlay from "../components/NoiseOverlay";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -15,14 +16,14 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Antoinette Fernandas — Creative Director in Emerging Tech",
+  title: "Antoinette Fernandes — Creative Director in Emerging Tech",
   description: "Stockholm creative and tech hybrid. Work spans AI, fashion, emerging technology, and design practice.",
-  authors: [{ name: "Antoinette Fernandas" }],
+  authors: [{ name: "Antoinette Fernandes" }],
   openGraph: {
     type: "website",
-    title: "Antoinette Fernandas — Creative Director in Emerging Tech",
+    title: "Antoinette Fernandes — Creative Director in Emerging Tech",
     description: "Stockholm creative and tech hybrid. Work spans AI, fashion, emerging technology, and design practice.",
-    siteName: "Antoinette Fernandas Portfolio",
+    siteName: "Antoinette Fernandes Portfolio",
   },
 };
 
@@ -33,7 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${outfit.variable}`}>
-      <body>{children}</body>
+      <body>
+        <NoiseOverlay />
+        {children}
+      </body>
     </html>
   );
 }

@@ -36,9 +36,9 @@ export interface PortfolioConfig {
 }
 
 export const defaultConfig: PortfolioConfig = {
-  artistName: "Antoinette Fernandas",
+  artistName: "Antoinette Fernandes",
   initials: "Af",
-  email: "antoinette@magicfabricblog.com",
+  email: "thantoinetteferns99@gmail.com",
   bio: "I started in fashion, cutting patterns, building garments, understanding the body. Over time I moved into emerging technologies, not to leave that world behind but to expand what it could be. The craft background stays with me. It shapes how I approach AI, with the same conviction that making something means leaving something of yourself in it.",
   press: [
     { id: "p1", num: "01", name: "Al Sweden", url: "#" },
@@ -88,16 +88,16 @@ export const defaultConfig: PortfolioConfig = {
     {
       type: "media",
       id: "g1",
-      mediaUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=800&auto=format&fit=crop",
+      mediaUrl: "/Screenshot 2026-06-11 at 11.23.01 PM.png",
       mediaType: "image",
       title: "Generative Organic Structure"
     },
     {
       type: "media",
       id: "g2",
-      mediaUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
+      mediaUrl: "/Screenshot 2026-06-11 at 11.23.43 PM.png",
       mediaType: "image",
-      title: "Green Fluid Dynamic Simulation"
+      title: "Cyberpunk Haute Couture"
     },
     {
       type: "text",
@@ -118,35 +118,36 @@ export const defaultConfig: PortfolioConfig = {
     {
       type: "media",
       id: "g5",
-      mediaUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop",
+
+      mediaUrl: "/Screenshot 2026-06-11 at 11.24.07 PM.png",
       mediaType: "image",
-      title: "Cyberpunk Haute Couture"
+      title: "Green Fluid Dynamic Simulation"
     },
     {
       type: "media",
       id: "g6",
-      mediaUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
+      mediaUrl: "/Screenshot 2026-06-11 at 11.24.33 PM.png",
       mediaType: "image",
-      title: "Future Human Concept"
+      title: "Liquid Pearl Gemstone"
     },
     {
       type: "media",
       id: "g7",
-      mediaUrl: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop",
+      mediaUrl: "/Screenshot 2026-06-11 at 11.24.20 PM.png",
       mediaType: "image",
       title: "Architectural 3D Garment"
     },
     {
       type: "media",
       id: "g8",
-      mediaUrl: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop",
+      mediaUrl: "/Screenshot 2026-06-11 at 11.23.19 PM.png",
       mediaType: "image",
-      title: "Liquid Pearl Gemstone"
+      title: "Future Human Concept"
     },
     {
       type: "media",
       id: "g9",
-      mediaUrl: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=800&auto=format&fit=crop",
+      mediaUrl: "/Screenshot 2026-06-11 at 11.24.59 PM.png",
       mediaType: "image",
       title: "Future Flora Render"
     },

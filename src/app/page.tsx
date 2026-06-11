@@ -136,7 +136,7 @@ export default function Home() {
 
       <main className="page">
         {/* Name Banner Section */}
-        <motion.section 
+        <motion.section
           className="name-banner"
           initial="hidden"
           animate="visible"
@@ -179,7 +179,7 @@ export default function Home() {
         <PortfolioGrid gridItems={config.gridItems} />
 
         {/* Minimalist Grid-aligned Footer */}
-        <motion.footer 
+        <motion.footer
           className="footer"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

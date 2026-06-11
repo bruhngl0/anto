@@ -28,6 +28,7 @@ export default function PortfolioHeader({
 }: PortfolioHeaderProps) {
   const [isThemeOpen, setIsThemeOpen] = useState(false);
   const [isSoundOpen, setIsSoundOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeTrack, setActiveTrack] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -77,8 +78,12 @@ export default function PortfolioHeader({
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="header__logo font-medium select-none">
-        {initials}
+      <div className="header__logo font-medium select-none" style={{ padding: 0, overflow: "hidden" }}>
+        <img 
+          src="/claudia.jpg" 
+          alt="Logo" 
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} 
+        />
       </div>
       
       <nav className="header__nav">
@@ -287,6 +292,179 @@ export default function PortfolioHeader({
           [Customize Site]
         </button>
       </nav>
+
+      {/* Mobile Navigation */}
+      <div className="header__nav-mobile-container">
+        <button 
+          onClick={() => {
+            setIsMobileMenuOpen(!isMobileMenuOpen);
+            setIsThemeOpen(false);
+            setIsSoundOpen(false);
+          }}
+          className="interactive mobile-menu-toggle"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "30px",
+            height: "30px",
+            color: "var(--fg)",
+          }}
+          aria-label="Toggle Menu"
+        >
+          {isMobileMenuOpen ? (
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              <line x1="4" y1="4" x2="14" y2="14" />
+              <line x1="14" y1="4" x2="4" y2="14" />
+            </svg>
+          ) : (
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              <line x1="2" y1="2" x2="16" y2="2" />
+              <line x1="2" y1="7" x2="16" y2="7" />
+              <line x1="2" y1="12" x2="16" y2="12" />
+            </svg>
+          )}
+        </button>
+
+        {isMobileMenuOpen && (
+          <div className="mobile-menu-dropdown">
+            <a 
+              href="#about" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mobile-menu-item"
+            >
+              Bio
+            </a>
+            <a 
+              href="#contact" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mobile-menu-item"
+            >
+              Contact
+            </a>
+            <a 
+              href="https://magicfabricblog.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mobile-menu-item"
+            >
+              Magic Fabric ↗
+            </a>
+            
+            {/* Theme section inside mobile menu */}
+            <div className="mobile-menu-section">
+              <button 
+                onClick={() => {
+                  setIsThemeOpen(!isThemeOpen);
+                  setIsSoundOpen(false);
+                }}
+                className="mobile-menu-item"
+                style={{ justifyContent: "space-between", width: "100%", display: "flex", alignItems: "center" }}
+              >
+                <span>Theme ({themes.find(t => t.id === activeThemeId)?.name || activeThemeId})</span>
+                <span>{isThemeOpen ? "▲" : "▼"}</span>
+              </button>
+              {isThemeOpen && (
+                <div className="mobile-submenu">
+                  {themes.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => {
+                        onThemeChange(t.id);
+                        setIsThemeOpen(false);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="mobile-submenu-item"
+                      style={{
+                        color: activeThemeId === t.id ? "var(--fg)" : "var(--mid)",
+                        display: "flex",
+                        alignItems: "center"
+                      }}
+                    >
+                      <span 
+                        style={{ 
+                          width: "8px", 
+                          height: "8px", 
+                          borderRadius: "50%", 
+                          background: t.color,
+                          marginRight: "8px",
+                          display: "inline-block",
+                          border: "1px solid rgba(242, 242, 242, 0.2)"
+                        }} 
+                      />
+                      {t.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Sound section inside mobile menu */}
+            <div className="mobile-menu-section">
+              <button 
+                onClick={() => {
+                  setIsSoundOpen(!isSoundOpen);
+                  setIsThemeOpen(false);
+                }}
+                className="mobile-menu-item"
+                style={{ justifyContent: "space-between", width: "100%", display: "flex", alignItems: "center" }}
+              >
+                <span>Sound ({activeTrack ? (activeTrack === "heaven" ? "75 Heaven" : activeTrack === "summer" ? "Summer of '69" : "Yumeji's Theme") : "Off"})</span>
+                <span>{isSoundOpen ? "▲" : "▼"}</span>
+              </button>
+              {isSoundOpen && (
+                <div className="mobile-submenu">
+                  <button
+                    onClick={() => {
+                      setActiveTrack(null);
+                      setIsSoundOpen(false);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-submenu-item"
+                    style={{ color: !activeTrack ? "var(--fg)" : "var(--mid)" }}
+                  >
+                    🔈 Sound Off
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTrack("heaven");
+                      setIsSoundOpen(false);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-submenu-item"
+                    style={{ color: activeTrack === "heaven" ? "var(--fg)" : "var(--mid)" }}
+                  >
+                    🎵 75 Heaven
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTrack("summer");
+                      setIsSoundOpen(false);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-submenu-item"
+                    style={{ color: activeTrack === "summer" ? "var(--fg)" : "var(--mid)" }}
+                  >
+                    🎵 Summer Of '69
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTrack("yumeji");
+                      setIsSoundOpen(false);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-submenu-item"
+                    style={{ color: activeTrack === "yumeji" ? "var(--fg)" : "var(--mid)" }}
+                  >
+                    🎵 Yumeji's Theme
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </motion.header>
   );
 }
