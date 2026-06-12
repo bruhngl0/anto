@@ -120,6 +120,83 @@ export default function PortfolioApp({ initialConfig }: PortfolioAppProps) {
     localStorage.setItem("portfolio-theme", activeTheme.id);
   }, [activeTheme]);
 
+  // Security checks: prevent context menu, keyboard shortcuts, selection copy/cut, and debugger loops
+  useEffect(() => {
+    const handleContextMenu = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".configurator") || target.closest(".configurator-overlay")) {
+        return;
+      }
+      e.preventDefault();
+    };
+
+    const handleCopy = (e: ClipboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".configurator") || target.closest(".configurator-overlay")) {
+        return;
+      }
+      e.preventDefault();
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".configurator") || target.closest(".configurator-overlay")) {
+        return;
+      }
+
+      if (e.key === "F12") {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "i") {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "c") {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "j") {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "u") {
+        e.preventDefault();
+        return false;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    const interval = setInterval(() => {
+      (function () {
+        const startTime = performance.now();
+        // eslint-disable-next-line no-debugger
+        debugger;
+        const endTime = performance.now();
+        if (endTime - startTime > 100) {
+          console.clear();
+          console.log("%cSecurity: Data protection active.", "color: red; font-size: 16px; font-weight: bold;");
+        }
+      })();
+    }, 800);
+
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("copy", handleCopy);
+    document.addEventListener("cut", handleCopy);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("copy", handleCopy);
+      document.removeEventListener("cut", handleCopy);
+      document.removeEventListener("keydown", handleKeyDown);
+      clearInterval(interval);
+    };
+  }, []);
+
   const handleThemeChange = (themeId: string) => {
     const match = THEMES.find((t) => t.id === themeId);
     if (match) setActiveTheme(match);
