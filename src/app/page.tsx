@@ -5,7 +5,7 @@ import PortfolioApp from "../components/PortfolioApp";
 // Generate SEO metadata dynamically from the active database configuration
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getLiveConfig();
-  const title = `${config.artistName} — Creative Portfolio`;
+  const title = config.artistName;
   const description = config.bio.substring(0, 160);
 
   return {

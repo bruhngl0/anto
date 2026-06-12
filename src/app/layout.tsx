@@ -16,12 +16,12 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Antoinette Fernandes — Creative Director in Emerging Tech",
+  title: "Antoinette Fernandes",
   description: "Stockholm creative and tech hybrid. Work spans AI, fashion, emerging technology, and design practice.",
   authors: [{ name: "Antoinette Fernandes" }],
   openGraph: {
     type: "website",
-    title: "Antoinette Fernandes — Creative Director in Emerging Tech",
+    title: "Antoinette Fernandes",
     description: "Stockholm creative and tech hybrid. Work spans AI, fashion, emerging technology, and design practice.",
     siteName: "Antoinette Fernandes Portfolio",
   },
