@@ -11,6 +11,7 @@ interface ThemeOption {
 
 interface PortfolioHeaderProps {
   initials: string;
+  email: string;
   onOpenConfigurator: () => void;
   isConfiguratorOpen: boolean;
   activeThemeId: string;
@@ -20,6 +21,7 @@ interface PortfolioHeaderProps {
 
 export default function PortfolioHeader({
   initials,
+  email,
   onOpenConfigurator,
   isConfiguratorOpen,
   activeThemeId,
@@ -52,7 +54,7 @@ export default function PortfolioHeader({
       } else if (activeTrack === "yumeji") {
         src = "/In%20The%20Mood%20For%20Love%20-%20Yumeji's%20Theme%20%5B4K%5D%20-%20clarencito%20(192k).mp3";
       }
-      
+
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.src = src;
@@ -72,28 +74,28 @@ export default function PortfolioHeader({
   }, [activeTrack]);
 
   return (
-    <motion.header 
+    <motion.header
       className="header"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="header__logo font-medium select-none" style={{ padding: 0, overflow: "hidden" }}>
-        <img 
-          src="/claudia.jpg" 
-          alt="Logo" 
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} 
+        <img
+          src="/claudia.jpg"
+          alt="Logo"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
       </div>
-      
+
       <nav className="header__nav">
         {/* Theme Selector Dropdown */}
         <div style={{ position: "relative" }}>
-          <button 
+          <button
             onClick={() => {
               setIsThemeOpen(!isThemeOpen);
               setIsSoundOpen(false);
-            }} 
+            }}
             className="interactive"
             style={{
               fontSize: "1.2rem",
@@ -107,9 +109,9 @@ export default function PortfolioHeader({
           >
             Theme <span style={{ fontSize: "0.8rem" }}>▼</span>
           </button>
-          
+
           {isThemeOpen && (
-            <div 
+            <div
               style={{
                 position: "absolute",
                 top: "100%",
@@ -144,14 +146,14 @@ export default function PortfolioHeader({
                     background: activeThemeId === t.id ? "rgba(242, 242, 242, 0.05)" : "transparent"
                   }}
                 >
-                  <span 
-                    style={{ 
-                      width: "8px", 
-                      height: "8px", 
-                      borderRadius: "50%", 
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
                       background: t.color,
                       border: "1px solid rgba(242, 242, 242, 0.2)"
-                    }} 
+                    }}
                   />
                   {t.name}
                 </button>
@@ -162,11 +164,11 @@ export default function PortfolioHeader({
 
         {/* Sound Selector Dropdown */}
         <div style={{ position: "relative" }}>
-          <button 
+          <button
             onClick={() => {
               setIsSoundOpen(!isSoundOpen);
               setIsThemeOpen(false);
-            }} 
+            }}
             className="interactive"
             style={{
               fontSize: "1.2rem",
@@ -180,9 +182,9 @@ export default function PortfolioHeader({
           >
             Sound: {activeTrack ? (activeTrack === "heaven" ? "75 Heaven" : activeTrack === "summer" ? "Summer Of '69" : "Yumeji's Theme") : "Off"} <span style={{ fontSize: "0.8rem" }}>▼</span>
           </button>
-          
+
           {isSoundOpen && (
-            <div 
+            <div
               style={{
                 position: "absolute",
                 top: "100%",
@@ -266,20 +268,11 @@ export default function PortfolioHeader({
           )}
         </div>
 
-        <a 
-          href="https://magicfabricblog.com" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="interactive"
-        >
-          Magic Fabric ↗
-        </a>
-        <a href="#about" className="interactive">Bio</a>
-        <a href="#contact" className="interactive">Contact</a>
-        <button 
-          onClick={onOpenConfigurator} 
+        <a href={`mailto:${email}`} className="interactive">Contact</a>
+        <button
+          onClick={onOpenConfigurator}
           className={`interactive font-bold header__customize-btn ${isConfiguratorOpen ? "active" : ""}`}
-          style={{ 
+          style={{
             color: isConfiguratorOpen ? 'var(--fg)' : 'rgba(242, 242, 242, 0.65)',
             border: '1px solid rgba(242, 242, 242, 0.2)',
             padding: '4px 8px',
@@ -295,7 +288,7 @@ export default function PortfolioHeader({
 
       {/* Mobile Navigation */}
       <div className="header__nav-mobile-container">
-        <button 
+        <button
           onClick={() => {
             setIsMobileMenuOpen(!isMobileMenuOpen);
             setIsThemeOpen(false);
@@ -329,32 +322,16 @@ export default function PortfolioHeader({
         {isMobileMenuOpen && (
           <div className="mobile-menu-dropdown">
             <a 
-              href="#about" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="mobile-menu-item"
-            >
-              Bio
-            </a>
-            <a 
-              href="#contact" 
+              href={`mailto:${email}`}
               onClick={() => setIsMobileMenuOpen(false)}
               className="mobile-menu-item"
             >
               Contact
             </a>
-            <a 
-              href="https://magicfabricblog.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="mobile-menu-item"
-            >
-              Magic Fabric ↗
-            </a>
-            
+
             {/* Theme section inside mobile menu */}
             <div className="mobile-menu-section">
-              <button 
+              <button
                 onClick={() => {
                   setIsThemeOpen(!isThemeOpen);
                   setIsSoundOpen(false);
@@ -382,16 +359,16 @@ export default function PortfolioHeader({
                         alignItems: "center"
                       }}
                     >
-                      <span 
-                        style={{ 
-                          width: "8px", 
-                          height: "8px", 
-                          borderRadius: "50%", 
+                      <span
+                        style={{
+                          width: "8px",
+                          height: "8px",
+                          borderRadius: "50%",
                           background: t.color,
                           marginRight: "8px",
                           display: "inline-block",
                           border: "1px solid rgba(242, 242, 242, 0.2)"
-                        }} 
+                        }}
                       />
                       {t.name}
                     </button>
@@ -402,7 +379,7 @@ export default function PortfolioHeader({
 
             {/* Sound section inside mobile menu */}
             <div className="mobile-menu-section">
-              <button 
+              <button
                 onClick={() => {
                   setIsSoundOpen(!isSoundOpen);
                   setIsThemeOpen(false);

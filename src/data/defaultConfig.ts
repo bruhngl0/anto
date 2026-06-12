@@ -38,7 +38,7 @@ export interface PortfolioConfig {
 export const defaultConfig: PortfolioConfig = {
   artistName: "Antoinette Fernandes",
   initials: "Af",
-  email: "thantoinetteferns99@gmail.com",
+  email: "antoinetteferns99@gmail.com",
   bio: "I started in fashion, cutting patterns, building garments, understanding the body. Over time I moved into emerging technologies, not to leave that world behind but to expand what it could be. The craft background stays with me. It shapes how I approach AI, with the same conviction that making something means leaving something of yourself in it.",
   press: [
     { id: "p1", num: "01", name: "Al Sweden", url: "#" },

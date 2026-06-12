@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { PortfolioConfig, GridItem, TextItem, MediaItem } from "../data/defaultConfig";
+import { PortfolioConfig, GridItem, TextItem, MediaItem, defaultConfig } from "../data/defaultConfig";
 
 interface ConfiguratorProps {
   isOpen: boolean;
@@ -19,6 +19,41 @@ export default function Configurator({
   const [activeTab, setActiveTab] = useState<"general" | "lists" | "grid" | "code">("general");
   const [selectedGridIndex, setSelectedGridIndex] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+
+  const handlePushToDB = async () => {
+    const passcode = window.prompt("Enter the Admin Passcode to push changes to the DB:");
+    if (passcode === null) return; // user cancelled
+
+    if (!passcode) {
+      alert("Passcode is required.");
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const response = await fetch("/api/config", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-secret": passcode,
+        },
+        body: JSON.stringify({ config }),
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        alert("Pushed to DB successfully!");
+      } else {
+        alert(`Failed to push: ${data.error || "Unknown error"}`);
+      }
+    } catch (error: any) {
+      console.error(error);
+      alert(`Error connecting to API: ${error.message || error}`);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -74,7 +109,7 @@ export default function Configurator({
   const updateGridItem = (index: number, updatedItem: any) => {
     const items = [...config.gridItems];
     const current = items[index];
-    
+
     // Type checking conversion
     let newItem: GridItem;
     if (updatedItem.type === "empty") {
@@ -149,11 +184,11 @@ export default function Configurator({
         </div>
 
         {/* Tab Navigation */}
-        <div 
-          style={{ 
-            display: "flex", 
-            borderBottom: "1px solid var(--line)", 
-            background: "#252525" 
+        <div
+          style={{
+            display: "flex",
+            borderBottom: "1px solid var(--line)",
+            background: "#252525"
           }}
         >
           {(["general", "lists", "grid", "code"] as const).map((tab) => (
@@ -182,7 +217,7 @@ export default function Configurator({
           {activeTab === "general" && (
             <div className="configurator__section">
               <h3>General Information</h3>
-              
+
               <div className="config-group">
                 <label>Artist Name</label>
                 <input
@@ -229,21 +264,21 @@ export default function Configurator({
           {activeTab === "lists" && (
             <div className="configurator__section">
               <h3>Manage Publications & Links</h3>
-              
+
               {(["press", "speaking", "podcasts", "links"] as const).map((listType) => (
                 <div key={listType} style={{ marginBottom: "2.5rem" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
                     <h4 style={{ textTransform: "uppercase", fontSize: "1.1rem", color: "var(--fg)", fontFamily: "var(--clash)", letterSpacing: "0.05em" }}>
                       {listType}
                     </h4>
-                    <button 
+                    <button
                       onClick={() => addListItem(listType)}
                       style={{ fontSize: "1.1rem", color: "#66ff66", border: "1px solid rgba(102, 255, 102, 0.3)", padding: "2px 8px" }}
                     >
                       + Add Item
                     </button>
                   </div>
-                  
+
                   <div style={{ maxHeight: "200px", overflowY: "auto", border: "1px solid var(--line)", padding: "8px" }}>
                     {config[listType].length === 0 ? (
                       <p style={{ color: "var(--mid)", fontSize: "1.1rem", padding: "8px" }}>No items in list.</p>
@@ -295,7 +330,7 @@ export default function Configurator({
                   let cls = "";
                   if (item.type === "media") cls = "media-cell";
                   if (item.type === "text") cls = "text-cell";
-                  
+
                   return (
                     <button
                       key={item.id || idx}
@@ -446,9 +481,9 @@ export default function Configurator({
                 <button onClick={handleExportJSON} className="btn-secondary">
                   📥 Download Config JSON
                 </button>
-                
-                <button 
-                  onClick={() => fileInputRef.current?.click()} 
+
+                <button
+                  onClick={() => fileInputRef.current?.click()}
                   className="btn-secondary"
                 >
                   📤 Upload Config JSON
@@ -467,15 +502,15 @@ export default function Configurator({
                   Generated configuration code snippet
                 </label>
                 <div style={{ position: "relative" }}>
-                  <pre 
-                    style={{ 
-                      background: "rgba(0,0,0,0.3)", 
-                      padding: "12px", 
-                      fontSize: "1rem", 
-                      fontFamily: "monospace", 
-                      overflowX: "auto", 
-                      maxHeight: "220px", 
-                      border: "1px solid var(--line)" 
+                  <pre
+                    style={{
+                      background: "rgba(0,0,0,0.3)",
+                      padding: "12px",
+                      fontSize: "1rem",
+                      fontFamily: "monospace",
+                      overflowX: "auto",
+                      maxHeight: "220px",
+                      border: "1px solid var(--line)"
                     }}
                   >
                     {JSON.stringify(config, null, 2)}
@@ -503,10 +538,39 @@ export default function Configurator({
           )}
         </div>
 
-        <div className="configurator__actions">
-          <button onClick={onClose} className="btn-primary">
-            Close & Preview
+        <div className="configurator__actions" style={{ display: "flex", gap: "12px", flexDirection: "column" }}>
+          <button
+            onClick={handlePushToDB}
+            disabled={isSaving}
+            className="btn-primary"
+            style={{ 
+              width: "100%", 
+              background: "#4caf50", 
+              borderColor: "#4caf50",
+              color: "#fff",
+              opacity: isSaving ? 0.6 : 1,
+              cursor: isSaving ? "not-allowed" : "pointer"
+            }}
+          >
+            {isSaving ? "Pushing..." : "Push to DB"}
           </button>
+          
+          <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+            <button 
+              onClick={() => {
+                if (window.confirm("Are you sure you want to reset all configurations to defaults?")) {
+                  onChange(defaultConfig);
+                }
+              }} 
+              className="btn-secondary"
+              style={{ flex: 1 }}
+            >
+              Reset to Defaults
+            </button>
+            <button onClick={onClose} className="btn-secondary" style={{ flex: 1 }}>
+              Close & Preview
+            </button>
+          </div>
         </div>
       </div>
     </div>

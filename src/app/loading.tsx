@@ -167,7 +167,7 @@ export default function Loading({ onComplete }: LoadingProps) {
       style={{
         width: "100%",
         height: "100vh",
-        background: "#2b2b2b",
+        background: "var(--bg)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

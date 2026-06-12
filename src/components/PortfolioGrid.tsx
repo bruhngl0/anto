@@ -2,6 +2,7 @@
 
 import { GridItem } from "../data/defaultConfig";
 import { motion } from "framer-motion";
+import LinkArrow from "./LinkArrow";
 
 interface PortfolioGridProps {
   gridItems: GridItem[];
@@ -32,7 +33,7 @@ const itemVariants = {
 
 export default function PortfolioGrid({ gridItems }: PortfolioGridProps) {
   return (
-    <motion.section 
+    <motion.section
       className="element-grid"
       variants={containerVariants}
       initial="hidden"
@@ -41,8 +42,8 @@ export default function PortfolioGrid({ gridItems }: PortfolioGridProps) {
       {gridItems.map((item, index) => {
         if (item.type === "text") {
           return (
-            <motion.div 
-              key={item.id || `text-${index}`} 
+            <motion.div
+              key={item.id || `text-${index}`}
               className="element"
               variants={itemVariants}
             >
@@ -56,7 +57,7 @@ export default function PortfolioGrid({ gridItems }: PortfolioGridProps) {
                     rel="noopener noreferrer"
                     className="interactive"
                   >
-                    {item.name} <span className="link-arrow">↗</span>
+                    {item.name} <LinkArrow />
                   </a>
                 ) : (
                   item.name
