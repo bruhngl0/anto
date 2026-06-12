@@ -504,9 +504,10 @@ body {
   color: var(--mid);
 }
 
-/* ─── FOOTER ─────────────────── */
 .footer {
-  padding: clamp(1.2rem, 1.6vw, 2.2rem) var(--pad);
+  height: var(--hdr);
+  box-sizing: border-box;
+  padding: 0 var(--pad);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -514,8 +515,7 @@ body {
   color: var(--mid);
   letter-spacing: .04em;
   text-transform: uppercase;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-shrink: 0;
 }
 
 .footer a {
@@ -825,14 +825,67 @@ a:hover .link-arrow,
 @media (min-width: 1025px) {
   .intro-section {
     flex: 1;
+    min-height: 0;
   }
 
   .intro-cell {
     border-bottom: none;
+    min-height: 0;
+  }
+
+  .intro-cell--about {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .intro-cell--about .intro-body {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  .intro-cell--about .intro-body::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .intro-cell--about .intro-body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .intro-cell--about .intro-body::-webkit-scrollbar-thumb {
+    background: var(--line);
+  }
+
+  .ps-list {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  .ps-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .ps-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .ps-list::-webkit-scrollbar-thumb {
+    background: var(--line);
   }
 
   .element-grid {
+    flex: 1;
+    min-height: 0;
     margin-top: 0;
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .element-grid .element,
+  .element-grid .element--empty,
+  .element-grid .element--media {
+    aspect-ratio: auto;
   }
 }
 
