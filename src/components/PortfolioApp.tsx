@@ -120,16 +120,8 @@ export default function PortfolioApp({ initialConfig }: PortfolioAppProps) {
     localStorage.setItem("portfolio-theme", activeTheme.id);
   }, [activeTheme]);
 
-  // Security checks: prevent context menu, keyboard shortcuts, selection copy/cut, and debugger loops
+  // Security checks: prevent keyboard shortcuts and selection copy/cut
   useEffect(() => {
-    const handleContextMenu = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest(".configurator") || target.closest(".configurator-overlay")) {
-        return;
-      }
-      e.preventDefault();
-    };
-
     const handleCopy = (e: ClipboardEvent) => {
       const target = e.target as HTMLElement;
       if (target.closest(".configurator") || target.closest(".configurator-overlay")) {
@@ -170,30 +162,14 @@ export default function PortfolioApp({ initialConfig }: PortfolioAppProps) {
       }
     };
 
-    const interval = setInterval(() => {
-      (function () {
-        const startTime = performance.now();
-        // eslint-disable-next-line no-debugger
-        debugger;
-        const endTime = performance.now();
-        if (endTime - startTime > 100) {
-          console.clear();
-          console.log("%cSecurity: Data protection active.", "color: red; font-size: 16px; font-weight: bold;");
-        }
-      })();
-    }, 800);
-
-    document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("copy", handleCopy);
     document.addEventListener("cut", handleCopy);
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("copy", handleCopy);
       document.removeEventListener("cut", handleCopy);
       document.removeEventListener("keydown", handleKeyDown);
-      clearInterval(interval);
     };
   }, []);
 

@@ -65,7 +65,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
   /* Disable selection globally */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -74,7 +74,11 @@ body {
 }
 
 /* Allow selection in text boxes and customizer fields for site editing */
-input, textarea, select, .configurator, .configurator * {
+input,
+textarea,
+select,
+.configurator,
+.configurator * {
   -webkit-user-select: text !important;
   -moz-user-select: text !important;
   -ms-user-select: text !important;
@@ -82,10 +86,10 @@ input, textarea, select, .configurator, .configurator * {
 }
 
 /* Disable drag operations on media elements */
-img, video {
+img,
+video {
   -webkit-user-drag: none;
   user-drag: none;
-  pointer-events: none;
 }
 
 /* For when default cursor needs to show (e.g. on editor textboxes or mobile) */
@@ -561,7 +565,9 @@ img, video {
 @media (max-width: 768px) {
   .footer {
     height: auto;
-    padding: 1.0rem var(--pad);
+    padding-left: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -578,6 +584,7 @@ img, video {
     align-items: flex-start;
     text-align: left;
     width: 100%;
+
   }
 
   .footer__copyright {
