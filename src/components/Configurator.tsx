@@ -65,7 +65,7 @@ export default function Configurator({
   };
 
   // List Item Actions
-  const addListItem = (type: "press" | "speaking" | "podcasts" | "links") => {
+  const addListItem = (type: "films" | "music" | "fashion" | "blogs") => {
     const list = [...config[type]];
     const newNum = String(list.length + 1).padStart(2, "0");
     list.push({
@@ -78,7 +78,7 @@ export default function Configurator({
   };
 
   const removeListItem = (
-    type: "press" | "speaking" | "podcasts" | "links",
+    type: "films" | "music" | "fashion" | "blogs",
     id: string
   ) => {
     const list = config[type].filter((item) => item.id !== id);
@@ -91,7 +91,7 @@ export default function Configurator({
   };
 
   const updateListItem = (
-    type: "press" | "speaking" | "podcasts" | "links",
+    type: "films" | "music" | "fashion" | "blogs",
     id: string,
     field: string,
     value: string
@@ -265,7 +265,7 @@ export default function Configurator({
             <div className="configurator__section">
               <h3>Manage Publications & Links</h3>
 
-              {(["press", "speaking", "podcasts", "links"] as const).map((listType) => (
+              {(["films", "music", "fashion", "blogs"] as const).map((listType) => (
                 <div key={listType} style={{ marginBottom: "2.5rem" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
                     <h4 style={{ textTransform: "uppercase", fontSize: "1.1rem", color: "var(--fg)", fontFamily: "var(--clash)", letterSpacing: "0.05em" }}>

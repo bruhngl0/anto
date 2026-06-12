@@ -114,10 +114,11 @@ export default function Loading({ onComplete }: LoadingProps) {
     let lastTime: number | null = null;
     let rafId: number;
     let arrived = false;
+    let timeoutId: NodeJS.Timeout | null = null;
 
     const onArrive = () => {
       // Let the red ant stay at the center for 400ms, then trigger site reveal
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         onComplete();
       }, 400);
     };
@@ -158,6 +159,9 @@ export default function Loading({ onComplete }: LoadingProps) {
 
     return () => {
       cancelAnimationFrame(rafId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       antGroups.forEach(({ g }) => g.remove());
     };
   }, [onComplete]);

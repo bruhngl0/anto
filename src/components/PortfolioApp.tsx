@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { PortfolioConfig } from "../data/defaultConfig";
 import CustomCursor from "../components/CustomCursor";
 import PortfolioHeader from "../components/PortfolioHeader";
@@ -125,8 +125,12 @@ export default function PortfolioApp({ initialConfig }: PortfolioAppProps) {
     if (match) setActiveTheme(match);
   };
 
+  const handleComplete = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
   if (isLoading) {
-    return <Loading onComplete={() => setIsLoading(false)} />;
+    return <Loading onComplete={handleComplete} />;
   }
 
   return (

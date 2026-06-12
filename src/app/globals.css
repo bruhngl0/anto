@@ -311,8 +311,8 @@ body {
   border-bottom: none;
 }
 
-.intro-cell--podcasts .ps-row:last-child,
-.intro-cell--links .ps-row:last-child {
+.intro-cell--fashion .ps-row:last-child,
+.intro-cell--blogs .ps-row:last-child {
   border-bottom: 1px solid var(--line);
 }
 

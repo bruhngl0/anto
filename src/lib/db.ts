@@ -26,8 +26,47 @@ export async function getLiveConfig(): Promise<PortfolioConfig> {
     `;
 
     if (result && result.length > 0) {
-      // Return parsed data. Ensure it has correct structure.
-      return result[0].data as PortfolioConfig;
+      const data = result[0].data as any;
+      let migrated = false;
+
+      // Migrate older keys to new category names
+      if (data.press !== undefined && data.films === undefined) {
+        data.films = data.press;
+        delete data.press;
+        migrated = true;
+      }
+      if (data.speaking !== undefined && data.music === undefined) {
+        data.music = data.speaking;
+        delete data.speaking;
+        migrated = true;
+      }
+      if (data.podcasts !== undefined && data.fashion === undefined) {
+        data.fashion = data.podcasts;
+        delete data.podcasts;
+        migrated = true;
+      }
+      if (data.links !== undefined && data.blogs === undefined) {
+        data.blogs = data.links;
+        delete data.links;
+        migrated = true;
+      }
+
+      if (migrated) {
+        console.log("Migrated portfolio config structure in database to new category fields.");
+        try {
+          const configStr = JSON.stringify(data);
+          await sql`
+            INSERT INTO portfolio_config (key, data, updated_at)
+            VALUES ('active', ${configStr}::jsonb, NOW())
+            ON CONFLICT (key) DO UPDATE
+            SET data = EXCLUDED.data, updated_at = NOW()
+          `;
+        } catch (saveError) {
+          console.error("Failed to save auto-migrated config to database:", saveError);
+        }
+      }
+
+      return data as PortfolioConfig;
     }
 
     // If no row exists, insert the default config and return it

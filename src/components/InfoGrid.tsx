@@ -56,7 +56,7 @@ function LinkArrow() {
 }
 
 export default function InfoGrid({ config }: InfoGridProps) {
-  const { bio, press, speaking, podcasts, links } = config;
+  const { bio, films, music, fashion, blogs } = config;
 
   return (
     <motion.section
@@ -80,7 +80,7 @@ export default function InfoGrid({ config }: InfoGridProps) {
       <motion.div className="intro-cell" variants={columnVariants}>
         <span className="cell-label">Films</span>
         <div className="ps-list ps-list--two-col">
-          {press.map((item) => (
+          {films.map((item) => (
             <div key={item.id} className="ps-row">
               <span className="ps-num">{item.num}</span>
               <span className="ps-name">
@@ -94,7 +94,7 @@ export default function InfoGrid({ config }: InfoGridProps) {
               </span>
             </div>
           ))}
-          {press.length % 2 !== 0 && <div className="ps-row" />}
+          {films.length % 2 !== 0 && <div className="ps-row" />}
         </div>
       </motion.div>
 
@@ -102,7 +102,7 @@ export default function InfoGrid({ config }: InfoGridProps) {
       <motion.div className="intro-cell" variants={columnVariants}>
         <span className="cell-label">Music</span>
         <div className="ps-list">
-          {speaking.map((item) => (
+          {music.map((item) => (
             <div key={item.id} className="ps-row">
               <span className="ps-num">{item.num}</span>
               <span className="ps-name">
@@ -120,10 +120,10 @@ export default function InfoGrid({ config }: InfoGridProps) {
       </motion.div>
 
       {/* FASHION COLUMN (0.8fr) */}
-      <motion.div className="intro-cell intro-cell--podcasts" variants={columnVariants}>
+      <motion.div className="intro-cell intro-cell--fashion" variants={columnVariants}>
         <span className="cell-label">Fashion</span>
         <div className="ps-list">
-          {podcasts.map((item) => (
+          {fashion.map((item) => (
             <div key={item.id} className="ps-row">
               <span className="ps-num">{item.num}</span>
               <span className="ps-name">
@@ -141,10 +141,10 @@ export default function InfoGrid({ config }: InfoGridProps) {
       </motion.div>
 
       {/* BLOGS COLUMN (0.8fr) */}
-      <motion.div className="intro-cell intro-cell--links" variants={columnVariants}>
+      <motion.div className="intro-cell intro-cell--blogs" variants={columnVariants}>
         <span className="cell-label">Blogs</span>
         <div className="ps-list">
-          {links.map((item) => (
+          {blogs.map((item) => (
             <div key={item.id} className="ps-row">
               <span className="ps-num">{item.num}</span>
               <span className="ps-name">

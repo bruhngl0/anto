@@ -28,10 +28,10 @@ export interface PortfolioConfig {
   initials: string;
   email: string;
   bio: string;
-  press: Array<{ id: string; num: string; name: string; url?: string }>;
-  speaking: Array<{ id: string; num: string; name: string; url?: string }>;
-  podcasts: Array<{ id: string; num: string; name: string; url?: string }>;
-  links: Array<{ id: string; num: string; name: string; url?: string }>;
+  films: Array<{ id: string; num: string; name: string; url?: string }>;
+  music: Array<{ id: string; num: string; name: string; url?: string }>;
+  fashion: Array<{ id: string; num: string; name: string; url?: string }>;
+  blogs: Array<{ id: string; num: string; name: string; url?: string }>;
   gridItems: GridItem[];
 }
 
@@ -40,7 +40,7 @@ export const defaultConfig: PortfolioConfig = {
   initials: "Af",
   email: "antoinetteferns99@gmail.com",
   bio: "I started in fashion, cutting patterns, building garments, understanding the body. Over time I moved into emerging technologies, not to leave that world behind but to expand what it could be. The craft background stays with me. It shapes how I approach AI, with the same conviction that making something means leaving something of yourself in it.",
-  press: [
+  films: [
     { id: "p1", num: "01", name: "Al Sweden", url: "#" },
     { id: "p2", num: "02", name: "Vogue" },
     { id: "p3", num: "03", name: "Elle" },
@@ -55,7 +55,7 @@ export const defaultConfig: PortfolioConfig = {
     { id: "p12", num: "12", name: "SR / Studio Ett" },
     { id: "p13", num: "13", name: "Blowup Guild", url: "#" },
   ],
-  speaking: [
+  music: [
     { id: "s1", num: "01", name: "PI Apparel", url: "#" },
     { id: "s2", num: "02", name: "Hyper Island" },
     { id: "s3", num: "03", name: "H&M Global 3D Forum" },
@@ -66,11 +66,11 @@ export const defaultConfig: PortfolioConfig = {
     { id: "s8", num: "08", name: "Swedish Fashion Council" },
     { id: "s9", num: "09", name: "Gravity Sketch", url: "#" },
   ],
-  podcasts: [
+  fashion: [
     { id: "pod1", num: "01", name: "Scandinavian Mind", url: "#" },
     { id: "pod2", num: "02", name: "Future Squish", url: "#" },
   ],
-  links: [
+  blogs: [
     { id: "l1", num: "01", name: "LinkedIn", url: "#" },
     { id: "l2", num: "02", name: "Magic Fabric", url: "#" },
     { id: "l3", num: "03", name: "Instagram", url: "#" },
