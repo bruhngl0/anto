@@ -518,12 +518,70 @@ body {
   flex-shrink: 0;
 }
 
+.footer__pc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.footer__mobile {
+  display: none;
+}
+
 .footer a {
   transition: color 0.2s var(--ease);
 }
 
 .footer a:hover {
   color: var(--fg);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    height: auto;
+    padding: 1.0rem var(--pad);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__pc {
+    display: none;
+  }
+
+  .footer__mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .footer__copyright {
+    font-family: var(--clash);
+    font-size: 1.1rem;
+    color: var(--mid);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .footer__contact {
+    font-family: var(--sans);
+    font-size: 1.4rem;
+    color: var(--fg);
+    font-weight: 300;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer__contact:hover {
+    color: var(--mid);
+  }
 }
 
 /* ─── CONFIGURATOR DRAWER ────────────────── */
@@ -953,6 +1011,7 @@ a:hover .link-arrow,
   .header__nav {
     display: none !important;
   }
+
   .header__nav-mobile-container {
     display: block !important;
   }

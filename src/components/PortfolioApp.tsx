@@ -200,24 +200,38 @@ export default function PortfolioApp({ initialConfig }: PortfolioAppProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          <div>© {new Date().getFullYear()} {config.artistName}</div>
-          <div style={{ display: "flex", gap: "2.4rem" }}>
+          {/* PC Desktop Version */}
+          <div className="footer__pc">
+            <div>© {new Date().getFullYear()} {config.artistName}</div>
+            <div style={{ display: "flex", gap: "2.4rem" }}>
+              <a
+                href={`mailto:${config.email}`}
+                className="interactive"
+              >
+                Email
+              </a>
+              <a
+                href="https://magicfabricblog.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="interactive"
+              >
+                Blog
+              </a>
+            </div>
+            <div>All Rights Reserved</div>
+          </div>
+
+          {/* Mobile Responsive Version */}
+          <div className="footer__mobile">
+            <div className="footer__copyright">© {new Date().getFullYear()} {config.artistName}</div>
             <a
               href={`mailto:${config.email}`}
-              className="interactive"
+              className="footer__contact interactive"
             >
-              Email
-            </a>
-            <a
-              href="https://magicfabricblog.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="interactive"
-            >
-              Blog
+              Get in touch → {config.email}
             </a>
           </div>
-          <div>All Rights Reserved</div>
         </motion.footer>
       </main>
 
